@@ -1,0 +1,33 @@
+{
+  "env": {
+        "browser": true,
+        "es2021": true
+      },
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"plugins": [
+		"@typescript-eslint",
+    "jsx-a11y"
+	],
+	"rules": {
+    "no-console": "warn",
+		"semi": "off",
+		"@typescript-eslint/semi": [
+			"warn"
+		],
+		"@typescript-eslint/no-empty-interface": [
+			"error",
+			{
+				"allowSingleExtends": true
+			}
+		],
+    "@typescript-eslint/indent": ["error", 2],
+    "jsx-quotes": ["error", "prefer-double"],
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+    "plugin:jsx-a11y/recommended"
+	]
+}
