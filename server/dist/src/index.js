@@ -1,10 +1,17 @@
+import env from 'dotenv';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { connect } from 'mongoose';
+// import Book from '../models/book.js';
+// import Client from '../models/client.js';
 import { typeDefs } from './typeDefs.js';
 import { resolvers } from './resolvers/CardResolvers.js';
-const MONGODB = "mongodb+srv://root:root@cluster0.wbmiybl.mongodb.net/Books?retryWrites=true&w=majority";
-const DATABASE_URL = "mongodb+srv://roman:medvedev@cluster0.uxekfkp.mongodb.net/emergencyRoom?retryWrites=true&w=majority";
+env.config();
+// const MONGODB = "mongodb+srv://root:root@cluster0.wbmiybl.mongodb.net/Books?retryWrites=true&w=majority"
+// const DATABASE_URL = "mongodb+srv://roman:medvedev@cluster0.uxekfkp.mongodb.net/emergencyRoom?retryWrites=true&w=majority"
+const DATABASE_URL = process.env.MONGO_URI;
+console.log(DATABASE_URL);
+console.log(process.env);
 // const typeDefs = `#graphql
 //   type Book {
 //     _id: String
@@ -59,7 +66,7 @@ const DATABASE_URL = "mongodb+srv://roman:medvedev@cluster0.uxekfkp.mongodb.net/
 //     },
 //   },
 // };
-await connect(DATABASE_URL);
+await connect(process.env.MONGO_URI);
 const server = new ApolloServer({
     typeDefs,
     resolvers,

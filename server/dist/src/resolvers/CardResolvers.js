@@ -14,7 +14,7 @@ export const resolvers = {
             return res._id;
         },
         async updateClient(_, { ID, clientInput: { title, description, status, order } }) {
-            await Client.updateOne({ _id: ID }, { $set: { title, description, status, order } });
+            await Client.findByIdAndUpdate({ _id: ID }, { $set: { title, description, status, order } });
             return ID;
         },
         async deleteClient(_, { ID }) {
