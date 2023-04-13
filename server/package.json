@@ -15,7 +15,8 @@
   "dependencies": {
     "@apollo/server": "^4.6.0",
     "graphql": "^16.6.0",
-    "mongoose": "^7.0.3"
+    "mongoose": "^7.0.3",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
@@ -23,7 +24,6 @@
     "@typescript-eslint/parser": "^5.57.1",
     "eslint": "^8.38.0",
     "nodemon": "^2.0.22",
-    "typescript": "^5.0.4",
-    "dotenv": "^16.0.3"
+    "typescript": "^5.0.4"
   }
 }
