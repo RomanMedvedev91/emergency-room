@@ -4,10 +4,9 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { connect } from 'mongoose';
 import { typeDefs } from './typeDefs.js';
 import { resolvers } from './resolvers/CardResolvers.js';
-
 env.config();
 
-await connect(process.env.MONGO_URI);
+await connect(`${process.env.MONGO_URI}`);
 
 const server = new ApolloServer({
   typeDefs,
