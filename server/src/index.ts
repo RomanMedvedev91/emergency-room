@@ -5,6 +5,7 @@ import { connect } from 'mongoose';
 import { typeDefs } from './typeDefs.js';
 import { resolvers } from './resolvers/CardResolvers.js';
 env.config();
+const port = Number.parseInt(process.env.PORT) || 4000;
 
 await connect(`${process.env.MONGO_URI}`);
 
@@ -14,7 +15,7 @@ const server = new ApolloServer({
 });
 
 const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 },
+  listen: { port },
 });
 
 console.log(`🚀  Server ready at: ${url}`);
