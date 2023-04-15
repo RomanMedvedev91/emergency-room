@@ -1,3 +1,6 @@
+import { gql } from "@apollo/client";
+import { client } from "../../lib/apollo-client";
+
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
@@ -5,6 +8,26 @@ import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export async function getStaticProps() {
+  const { data } = await client.query({
+    query: gql`
+      query NextLaunch {
+        launchNext {
+          mission_name
+          launch_date_local
+          launch_site {
+            site_name_long
+          }
+        }
+      }
+    `,
+  });
+  return {
+    props: {
+      nextLaunch: data.launchNext,
+    },
+ };
+}
 export default function Home() {
   return (
     <>
