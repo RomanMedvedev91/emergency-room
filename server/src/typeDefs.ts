@@ -57,7 +57,6 @@ export const typeDefs = `#graphql
     createClient(clientInput: ClientInput): String!
     updateClient(ID: ID!, clientInput: ClientInput): String!
     deleteClient(ID: ID!): String!
-
     createRoom(title: String!): Room!
     updateRoom(id: ID!, title: String!): Room!
     deleteRoom(id: ID!): ID!
