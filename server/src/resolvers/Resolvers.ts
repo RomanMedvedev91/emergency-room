@@ -1,6 +1,6 @@
 // import Patient from "../../models/patient.js";
+import PatientModel from "../../models/patient.js";
 import RoomModel from "../../models/room.js";
-import PatientModel from '../../models/patient.js';
 
 export const resolvers = {
   Query: {
@@ -42,10 +42,10 @@ export const resolvers = {
       return patient._id;
     }
   },
-  Room: {
-    async patients(room) {
-      const populatedRoom = await room.populate('patients').execPopulate();
-      return populatedRoom.patients;
-    }
-  }
+  // Room: {
+  //   async patients(room) {
+  //     const populatedRoom = await room.populate('patients').execPopulate();
+  //     return populatedRoom.patients;
+  //   }
+  // }
 };

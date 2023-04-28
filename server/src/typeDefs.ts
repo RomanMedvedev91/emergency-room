@@ -20,7 +20,7 @@ export const typeDefs = `#graphql
   type Room {
     _id: ID!
     title: String!
-    patients: [Patient!]!
+    patients: [Patient]
   }
 
   input ClientInput {
@@ -45,23 +45,23 @@ export const typeDefs = `#graphql
 }
 
   type Query {
-    getClient(ID: ID!): Client!
+    getClient(id: ID!): Client!
     getClients: [Client]
     # getPatient(ID: ID!): Patient!
     # getPatients: [Patient]
     room(id: ID!): Room
-    rooms: [room!]!
+    rooms: [Room!]!
   }
 
   type Mutation {
     createClient(clientInput: ClientInput): String!
-    updateClient(ID: ID!, clientInput: ClientInput): String!
-    deleteClient(ID: ID!): String!
+    updateClient(id: ID!, clientInput: ClientInput): String!
+    deleteClient(id: ID!): String!
     createRoom(title: String!): Room!
     updateRoom(id: ID!, title: String!): Room!
     deleteRoom(id: ID!): ID!
     createPatient(roomId: ID!, patient: PatientInput!): Patient!
-    updatePatient(ID: ID!, patient: PatientInput): Patient!
-    deletePatient(ID: ID!): ID!
+    updatePatient(id: ID!, patient: PatientInput): Patient!
+    deletePatient(id: ID!): ID!
   }
 `;

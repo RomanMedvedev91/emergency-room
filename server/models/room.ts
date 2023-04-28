@@ -1,5 +1,5 @@
 import { Document, model, Schema } from 'mongoose';
-import { IPatient, PatientSchema } from './patient';
+import { IPatient, PatientSchema } from './patient.js';
 
 interface IRoom extends Document {
   title: string;

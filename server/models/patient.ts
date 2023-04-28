@@ -24,5 +24,4 @@ export const PatientSchema = new Schema<IPatient>({
 });
 
 const PatientModel = model<IPatient>('Patient', PatientSchema);
-
 export default PatientModel;
