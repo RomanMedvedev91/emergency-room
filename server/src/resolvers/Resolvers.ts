@@ -4,6 +4,12 @@ import RoomModel from "../../models/room.js";
 
 export const resolvers = {
   Query: {
+        async getPatient(_parent, { ID }) {
+      return await PatientModel.findById(ID);
+    },
+    async getPatients(_, { }) {
+      return await PatientModel.find();
+    },
     async room(_, { ID }) {
       const room = await RoomModel.findById(ID);
       return room;
