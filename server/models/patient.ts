@@ -1,9 +1,9 @@
 import { model, Schema } from 'mongoose';
 
 export interface IPatient {
-  id?: String;
-  fistName: string;
-  LastName: string;
+  id?: string;
+  firstName: string;
+  lastName: string;
   complainDescription?: string;
   status: 'todo' | 'in_progress' | 'done';
   order: number;
@@ -11,8 +11,8 @@ export interface IPatient {
 
 export const PatientSchema = new Schema<IPatient>({
   id: String,
-  fistName: { type: String, required: true },
-  LastName: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   complainDescription: { type: String },
   status: {
     type: String,
@@ -23,5 +23,5 @@ export const PatientSchema = new Schema<IPatient>({
   order: { type: Number, required: true },
 });
 
-const PatientModel = model<IPatient>('Patient', PatientSchema);
-export default PatientModel;
+const Patient = model<IPatient>('Patient', PatientSchema);
+export default Patient;

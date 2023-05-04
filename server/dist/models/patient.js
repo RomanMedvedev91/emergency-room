@@ -1,8 +1,8 @@
 import { model, Schema } from 'mongoose';
 export const PatientSchema = new Schema({
     id: String,
-    fistName: { type: String, required: true },
-    LastName: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     complainDescription: { type: String },
     status: {
         type: String,
@@ -12,5 +12,5 @@ export const PatientSchema = new Schema({
     },
     order: { type: Number, required: true },
 });
-const PatientModel = model('Patient', PatientSchema);
-export default PatientModel;
+const Patient = model('Patient', PatientSchema);
+export default Patient;

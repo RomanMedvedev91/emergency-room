@@ -1,57 +1,64 @@
-// import Patient from "../../models/patient.js";
-import PatientModel from "../../models/patient.js";
-import RoomModel from "../../models/room.js";
+import Patient from "../../models/patient.js";
+import Room from "../../models/room.js";
 
 export const resolvers = {
   Query: {
-        async getPatient(_parent, { ID }) {
-      return await PatientModel.findById(ID);
+        async getPatient(_parent, { id }) {
+      return await Patient.findById(id);
     },
     async getPatients(_, { }) {
-      return await PatientModel.find();
+      return await Patient.find();
     },
-    async room(_, { ID }) {
-      const room = await RoomModel.findById(ID);
+    async room(_, { id }) {
+      const room = await Room.findById(id);
       return room;
     },
     async rooms() {
-      const rooms = await RoomModel.find();
+      const rooms = await Room.find();
       return rooms;
     }
   },
   Mutation: {
     async createRoom(_, { title }) {
-      const res = await new RoomModel({ title }).save();
-      return res._id;
-    },
-    async updateRoom(_, { ID, title }) {
-      const res = await RoomModel.findByIdAndUpdate(ID, { title }, { new: true });
+      const res = await new Room({ title }).save();
       return res;
     },
-    async deleteRoom(_, { ID }) {
-      const res = await RoomModel.findByIdAndDelete(ID);
+    async updateRoom(_, { id, title }) {
+      const res = await Room.findByIdAndUpdate(id, { title }, { new: true });
+      return res;
+    },
+    async deleteRoom(_, { id }) {
+      const res = await Room.findByIdAndDelete(id);
       return res._id;
     },
-    async createPatient(_parent, { roomId, firstName, lastName, complainDescription, status, order }) {
-      const patient = await new PatientModel({ firstName, lastName, complainDescription, status, order }).save();
-      const room = await RoomModel.findById(roomId);
-      room.patients.push(patient);
-      await room.save();
-      return patient;
+    async createPatient(_parent, { roomId, patient }) {
+      const { firstName, lastName, complainDescription, status, order } = patient;
+      const newPatient = new Patient({ firstName, lastName, complainDescription, status, order });
+
+      try {
+        await newPatient.save();
+    
+        if (roomId) {
+          const room = await Room.findById(roomId);
+          room.patients.push(newPatient);
+          await room.save();
+        }
+    
+        return newPatient;
+      } catch (error) {
+        console.log(error);
+        throw new Error('Could not create patient.');
+      }
     },
-    async updatePatient(_, { ID, firstName, lastName, complainDescription, status, order }) {
-      const patient = await PatientModel.findByIdAndUpdate(ID, { firstName, lastName, complainDescription, status, order }, { new: true });
-      return patient._id;
+    async updatePatient(_, { id, patient }) {
+      const { firstName, lastName, complainDescription, status, order } = patient;
+      const updatedPatient = await Patient.findByIdAndUpdate(id, { firstName, lastName, complainDescription, status, order }, { new: true });
+      return updatedPatient;
     },
-    async deletePatient(_, { ID }) {
-      const patient = await PatientModel.findByIdAndDelete(ID);
+
+    async deletePatient(_, { id }) {
+      const patient = await Patient.findByIdAndDelete(id);
       return patient._id;
     }
   },
-  // Room: {
-  //   async patients(room) {
-  //     const populatedRoom = await room.populate('patients').execPopulate();
-  //     return populatedRoom.patients;
-  //   }
-  // }
 };

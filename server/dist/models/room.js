@@ -4,5 +4,5 @@ const RoomSchema = new Schema({
     title: { type: String, required: true },
     patients: [PatientSchema]
 });
-const RoomModel = model('Room', RoomSchema);
-export default RoomModel;
+const Room = model('Room', RoomSchema);
+export default Room;

@@ -11,5 +11,5 @@ const RoomSchema = new Schema<IRoom>({
   patients: [PatientSchema]
 })
 
-const RoomModel = model<IRoom>('Room', RoomSchema);
-export default RoomModel;
+const Room = model<IRoom>('Room', RoomSchema);
+export default Room;
