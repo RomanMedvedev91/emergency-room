@@ -3,7 +3,7 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { connect } from 'mongoose';
 import { typeDefs } from './typeDefs.js';
-import { resolvers } from './resolvers/CardResolvers.js';
+import { resolvers } from './resolvers/Resolvers.js';
 env.config();
 const port = Number.parseInt(process.env.PORT) || 4000;
 
