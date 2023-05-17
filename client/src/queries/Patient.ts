@@ -17,7 +17,7 @@ enum PatientStatus {
   'in_progress',
   'done'
 }
-interface IPatient {
+export interface IPatient {
   _id: string;
   complainDescription: string;
   firstName: string;
@@ -41,6 +41,9 @@ export const GET_PATIENT = gql`
     }
   }
 `;
+export type GetPatientDataResponseType = {
+  getPatient: IPatient;
+};
 
 export const CREATE_PATIENT = gql`
   mutation CreatePatient($roomId: ID!, $patient: PatientInput!) {
@@ -54,12 +57,20 @@ export const CREATE_PATIENT = gql`
     }
   }
 `;
+export type CreatePatientDataResponseType = {
+  getPatient: IPatient;
+};
 
 export const DELETE_PATIENT = gql`
   mutation DeletePatient($deletePatientId: ID!) {
-    deletePatient(id: $deletePatientId)
+    deletePatient(id: $deletePatientId) {
+      _id
+    }
   }
 `;
+export type DeletePatientDataResponseType = {
+  deletePatient: Pick<IPatient, '_id'>;
+};
 
 export const UPDATE_PATIENT = gql`
   mutation UpdatePatient($updatePatientId: ID!, $patient: PatientInput) {
@@ -73,3 +84,6 @@ export const UPDATE_PATIENT = gql`
     }
   }
 `;
+export type UpdatePatientDataResponseType = {
+  updatePatient: IPatient;
+};
