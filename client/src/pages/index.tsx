@@ -1,32 +1,16 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import Head from 'next/head';
+import styles from '@/styles/Home.module.css';
 
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
-
-const GET_CLIENTS =gql`
-  query ExampleQuery {
-  getClients {
-    _id
-    description
-    order
-    status
-    title
-  }
-}
-`
+import { GetPatientsDataResponseType, GET_PATIENTS } from '../queries/Patient';
 
 export default function Home() {
-  const { loading, error, data } = useQuery(GET_CLIENTS, {
+  const { loading, error, data } = useQuery(GET_PATIENTS, {
     onCompleted(data) {
-      console.log(data);
+      console.log('data: ', data.getPatients);
     },
   });
 
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 
   return (
@@ -47,13 +31,14 @@ export default function Home() {
         </div>
         <h2>My first Apollo app 🚀</h2>
         <br/>
-        <div>
-          {data.getClients.map(({ order, description, status, title, _id }: any) => (
+        {loading ? <p>Loading...</p> : (
+          <div>
+            {data.getPatients.map(({ complainDescription, _id, firstName, lastName, order, status }: GetPatientsDataResponseType['getPatients'][number]) => (
               <div key={_id}>
-                <h3>{title}</h3>
+                <h3>{`${firstName} ${lastName}`}</h3>
                 <br />
                 <b>About this client:</b>
-                <p>{description}</p>
+                <p>{complainDescription}</p>
                 <br />
                 <p>Status:</p>
                 <p>{status}</p>
@@ -62,8 +47,9 @@ export default function Home() {
                 <h2>{order}</h2>
               </div>
             ))}
-        </div>
+          </div>
+        )}
       </main>
     </>
-  )
+  );
 }
