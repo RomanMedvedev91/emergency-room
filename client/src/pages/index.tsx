@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import * as React from 'react';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 
 
 import Head from 'next/head';
@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { DragDropContext as DragDropContext1, type DragDropContextProps, type OnDragEndResponder } from 'react-beautiful-dnd';
 
 import { GET_ROOMS } from '../queries/Room';
-import { Box, Container, Flex, Stack, Title } from '@mantine/core';
+import { Container, Flex, Title } from '@mantine/core';
 
 export default function Home() {
   const { loading, error, data } = useQuery(GET_ROOMS, {
