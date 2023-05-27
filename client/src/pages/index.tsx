@@ -1,48 +1,48 @@
 import { useQuery } from '@apollo/client';
 import * as React from 'react';
 import { useState } from 'react';
-
-
-import Head from 'next/head';
-// import styles from '@/styles/Home.module.css';
-import { DragDropContext as DragDropContext1, type DragDropContextProps, type OnDragEndResponder } from 'react-beautiful-dnd';
-
-import { GET_ROOMS } from '../queries/Room';
 import { Container, Flex, Title } from '@mantine/core';
+import { DragDropContext as DragDropContext1, type DragDropContextProps, type OnDragEndResponder } from 'react-beautiful-dnd';
+import Head from 'next/head';
+
+// import styles from '@/styles/Home.module.css';
+import { GET_ROOMS, type IRoom } from '../queries/Room';
+import Room from '../components/Room';
+
 
 export default function Home() {
-  const { loading, error, data } = useQuery(GET_ROOMS, {
+  const roomQuery = useQuery(GET_ROOMS, {
     onCompleted(data) {
       console.log('data: ', data);
     },
   });
-  const [rooms, setRooms] = useState([]);
+  // const [rooms, setRooms] = useState([]);
 
-  if (error) return <p>Error : {error.message}</p>;
-  console.log('data: ', data);
-  const onDragEnd: OnDragEndResponder = (result) => {
-    const { destination, source, draggableId } = result;
-    if (!destination) {
-      return;
-    }
-    if ( destination.droppableId === source.droppableId ) {
-      return;
-    }
-    // const updatedRoomList = rooms && rooms.map((t: any) => {
-    //   if (t._id === draggableId) {
-    //     return {
-    //       ...t,
-    //       status: destination.droppableId
-    //     }
-    //   } else {
-    //     return t;
-    //   }
-    // });
-    // setRooms(updatedRoomList);
-  };
+  if (roomQuery.error) return <p>Error : {roomQuery.error.message}</p>;
+  console.log('data: ', roomQuery.data);
+  // const onDragEnd: OnDragEndResponder = (result) => {
+  //   const { destination, source, draggableId } = result;
+  //   if (!destination) {
+  //     return;
+  //   }
+  //   if ( destination.droppableId === source.droppableId ) {
+  //     return;
+  //   }
+  // const updatedRoomList = rooms && rooms.map((t: any) => {
+  //   if (t._id === draggableId) {
+  //     return {
+  //       ...t,
+  //       status: destination.droppableId
+  //     }
+  //   } else {
+  //     return t;
+  //   }
+  // });
+  // setRooms(updatedRoomList);
+  // };
 
   // to avoid Type error: 'Draggable' cannot be used as a JSX component
-  const DragDropContext = DragDropContext1 as React.ComponentClass<DragDropContextProps>;
+  // const DragDropContext = DragDropContext1 as React.ComponentClass<DragDropContextProps>;
 
   return (
     <>
@@ -54,15 +54,18 @@ export default function Home() {
       </Head>
       <Container size="xl" p={0}>
         <Title>Emergency Room</Title>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Flex
-            direction={{ base: 'column', sm: 'row' }}
-            gap={{ base: 'md', sm: 'lg' }}
-            justify="center"
-            align={{ base: 'center', sm: 'flex-start' }}
-            wrap="nowrap"
-          >
-            {/* {state.columnOrder.map((columnId) => {
+        {/* <DragDropContext onDragEnd={onDragEnd}> */}
+        <Flex
+          direction={{ base: 'column', sm: 'row' }}
+          gap={{ base: 'md', sm: 'lg' }}
+          justify="center"
+          align={{ base: 'center', sm: 'flex-start' }}
+          wrap="nowrap"
+        >
+          {roomQuery.data.rooms.map((room: IRoom) => (
+            <Room key={room._id} roomData={room} />
+          ))}
+          {/* {state.columnOrder.map((columnId) => {
               const column = state.columns[columnId as keyof typeof state.columns];
               const tasks = column.taskIds.map(taskId => (
                 state.tasks[taskId as keyof typeof state.tasks]
@@ -83,8 +86,8 @@ export default function Home() {
                 </Stack>
               );
             })} */}
-          </Flex>
-        </DragDropContext>
+        </Flex>
+        {/* </DragDropContext> */}
       </Container>
       {/* <main className={styles.main}>
         <div className={styles.description}>
