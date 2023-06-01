@@ -54,6 +54,7 @@ export default function Home() {
       </Head>
       <Container size="xl" p={0}>
         <Title>Emergency Room</Title>
+        {roomQuery.loading && <Title order={2}>Loading ...</Title>}
         {/* <DragDropContext onDragEnd={onDragEnd}> */}
         <Flex
           direction={{ base: 'column', sm: 'row' }}
@@ -62,7 +63,7 @@ export default function Home() {
           align={{ base: 'center', sm: 'flex-start' }}
           wrap="nowrap"
         >
-          {roomQuery.data.rooms.map((room: IRoom) => (
+          {roomQuery.data?.rooms?.map((room: IRoom) => (
             <Room key={room._id} roomData={room} />
           ))}
           {/* {state.columnOrder.map((columnId) => {

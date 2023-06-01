@@ -17,6 +17,7 @@ export default function Room({ roomData }: IRoomProps) {
       radius="md"
       p="md"
       sx={{
+        minWidth: 300,
         minHeight: '100%',
       }}
     >

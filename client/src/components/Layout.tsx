@@ -1,4 +1,4 @@
-import { AppShell, AppShellProps } from "@mantine/core";
+import { AppShell, AppShellProps, ScrollArea } from "@mantine/core";
 
 export const Layout = ({ children }: AppShellProps) => {
   return (
@@ -7,7 +7,9 @@ export const Layout = ({ children }: AppShellProps) => {
       fixed
       header={<div>Header</div>}
     >
-      {children}
+      <ScrollArea>
+        {children}
+      </ScrollArea>
     </AppShell>
   );
 };
